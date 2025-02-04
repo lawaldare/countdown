@@ -15,7 +15,7 @@ main {
       margin-bottom: 20px;
     }
 
-    @media (width <= 425px) {
+    @media (width <= 500px) {
       font-size: 0.8rem;
       margin-bottom: 10px;
     }
@@ -41,7 +41,7 @@ div {
   justify-content: center;
   align-items: center;
 
-  @media (width <= 425px) {
+  @media (width <= 500px) {
     flex-direction: column;
   }
 }
