@@ -16,23 +16,21 @@ main {
     }
   }
 
+  h3,
+  span {
+    text-align: center;
+  }
+
   span {
     font-size: 4rem;
-    margin-right: 30px;
+    display: block;
 
     @media (width <= 767px) {
       font-size: 2rem;
-      margin-right: 10px;
     }
   }
-}
 
-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media (width <= 767px) {
-    flex-direction: column;
+  .text {
+    padding: 20px;
   }
 }

@@ -9,30 +9,44 @@ import { Component, OnInit, signal } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   public countdown = signal<number>(0);
-
-  targetDate: Date = new Date('April 12, 2025 23:59:59');
-  days: number = 0;
-  hours: number = 0;
-  minutes: number = 0;
-  seconds: number = 0;
+  ukTime!: string;
+  edmontonTime!: string;
+  intervalId: any;
 
   ngOnInit(): void {
-    this.updateCountdown();
+    this.updateTimes();
+    this.intervalId = setInterval(() => this.updateTimes(), 1000);
   }
 
-  updateCountdown() {
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId);
+  }
+
+  updateTimes() {
     const now = new Date();
-    const timeRemaining = this.targetDate.getTime() - now.getTime();
 
-    this.days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-    this.hours = Math.floor(
-      (timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    this.minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-    this.seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+    // Format options
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true,
+    };
 
-    setTimeout(() => {
-      this.updateCountdown();
-    }, 1000);
+    // UK
+    this.ukTime = new Intl.DateTimeFormat('en-CA', {
+      ...options,
+      timeZone: 'Europe/London',
+    }).format(now);
+
+    // Canada - Edmonton
+    this.edmontonTime = new Intl.DateTimeFormat('en-CA', {
+      ...options,
+      timeZone: 'America/Edmonton',
+    }).format(now);
   }
 }
