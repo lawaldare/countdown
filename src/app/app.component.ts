@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   public countdown = signal<number>(0);
   ukTime!: string;
   edmontonTime!: string;
+  nigeriaTime!: string;
   intervalId: any;
 
   ngOnInit(): void {
@@ -47,6 +48,12 @@ export class AppComponent implements OnInit {
     this.edmontonTime = new Intl.DateTimeFormat('en-CA', {
       ...options,
       timeZone: 'America/Edmonton',
+    }).format(now);
+
+    // Nigeria
+    this.nigeriaTime = new Intl.DateTimeFormat('en-CA', {
+      ...options,
+      timeZone: 'Africa/Lagos',
     }).format(now);
   }
 }
